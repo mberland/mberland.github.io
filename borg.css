@@ -1,0 +1,12 @@
+a { text-decoration: none; color: #CCCCCC;}
+a:link { text-decoration: none; color: #CCCCCC;}
+a:visited { text-decoration: none; color: #CCCCCC;}
+a:hover { color: #FFCC00; }
+DIV {color: white; font-size: 14px; font-family: Menlo,Courier,monospaced,fixed;}
+DIV.pub {text-indent: 0px;  padding-bottom: 10px;  text-indent: 0px;}
+DIV.pub a:link { color: #00FFFF;}
+DIV.pub a:visited { color: #00FFFF;}
+DIV.hx {padding-top: 20px; padding-bottom: 20px; font-size: 16px;}
+DIV.papers {text-indent: 0px;}
+DIV.bio {text-indent: 0px;}
+DIV.nav {position: absolute; top: 40px; left: 10px; text-align: right;}
