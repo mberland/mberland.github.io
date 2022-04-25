@@ -1,0 +1,11 @@
+body {
+    background: black;
+}
+
+div {
+    text-align: center;
+}
+
+div#docLog {
+    color: white;
+}

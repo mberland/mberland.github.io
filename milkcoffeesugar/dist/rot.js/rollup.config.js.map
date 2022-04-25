@@ -1,0 +1,1 @@
+{"version":3,"file":"rollup.config.js","sourceRoot":"./src/","sources":["rot.js/rollup.config.js"],"names":[],"mappings":"AAAA,eAAe;IACd,KAAK,EAAE,cAAc;IACrB,MAAM,EAAE;QACP,IAAI,EAAE,KAAK;QACX,MAAM,EAAE,KAAK;KACb;CACD,CAAA"}
