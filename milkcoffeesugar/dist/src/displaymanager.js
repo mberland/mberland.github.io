@@ -7,18 +7,6 @@ var DisplayManager = /** @class */ (function () {
         this.d = new Display(dimensions);
         var div = document.createElement("div");
         div.id = "rot";
-        // document.body.addEventListener("keydown", function (e) {
-        //     let code = e.keyCode;
-        //
-        //     let vk = "?"; /* find the corresponding constant */
-        //     for (let name in KEYS) {
-        //         if (KEYS[name] == code && name.indexOf("VK_") == 0) {
-        //             vk = name;
-        //         }
-        //     }
-        //
-        //     logger.log("Keydown: code is " + code + " (" + vk + ")");
-        // });
         document.body.appendChild(div);
         div.appendChild(this.d.getContainer());
     }
@@ -51,11 +39,17 @@ var DisplayManager = /** @class */ (function () {
             }
         }
     };
-    DisplayManager.prototype.drawTextInBox = function (text, x, y, width, height, fg) {
+    DisplayManager.prototype.drawTextInBox = function (text, x, y, width, height, fg, vcenter) {
+        if (vcenter === void 0) { vcenter = true; }
         var row_window = height - 2 * x_buffer;
         var col_window = width - 2 * x_buffer;
         var cc = 0;
-        for (var row = 0; row < row_window; row++) {
+        var start_row = 0;
+        if (vcenter) {
+            var total_rows = text.split("\n").length;
+            start_row = Math.floor((row_window - total_rows) / 2);
+        }
+        for (var row = start_row; row < row_window; row++) {
             for (var col = 0; col < col_window; col++) {
                 var c = text[cc];
                 cc += 1;
@@ -65,14 +59,9 @@ var DisplayManager = /** @class */ (function () {
                 this.draw(x + x_buffer + col, y + x_buffer + row, c, fg, "black");
             }
         }
-        // for (let i = 0; i < text.length; i++) {
-        //     if (i > col_window * row_window) {
-        //         return;
-        //     }
-        //     let tx = (i % col_window) + x_buffer;
-        //     let ty = Math.floor(i / col_window) + x_buffer;
-        //     this.d.draw(x + tx, y + ty, text[i], fg, "black");
-        // }
+    };
+    DisplayManager.prototype.eventToPosition = function (e) {
+        return this.d.eventToPosition(e);
     };
     return DisplayManager;
 }());

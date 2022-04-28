@@ -20,12 +20,16 @@ var ACard = /** @class */ (function () {
         else
             return this.fg_inactive;
     };
-    ACard.prototype.draw = function () {
+    ACard.prototype.contains = function (x, y) {
+        return (x >= this.cx && x < (this.cx + this.width) && y >= this.cy && y < (this.cy + this.height));
+    };
+    ACard.prototype.draw = function (vcenter) {
+        if (vcenter === void 0) { vcenter = true; }
         if (!this.is_created) {
             return;
         }
         this.d.drawBox(this.cx, this.cy, this.width, this.height, this.bg);
-        this.d.drawTextInBox(this.card_text, this.cx, this.cy, this.width, this.height, this.getFG());
+        this.d.drawTextInBox(this.card_text, this.cx, this.cy, this.width, this.height, this.getFG(), vcenter);
     };
     ACard.prototype.setupCard = function (x, y, width, height, fg, bg) {
         this.cx = x;

@@ -1,5 +1,3 @@
-// import {Display} from "../lib/index.js";
-// export const clamp = (num: number, min: number, max: number) => Math.min(Math.max(num, min), max)
 import { LogManager } from "./logmanager.js";
 export var BAD_NUMBER = -28768;
 export var commodities = ["Milk", "Coffee", "Sugar"];
@@ -16,21 +14,32 @@ export var Patch;
     Patch[Patch["Wall"] = 1] = "Wall";
     Patch[Patch["Floor"] = 2] = "Floor";
 })(Patch || (Patch = {}));
-export var dimensions = { width: 70, height: 30 };
+export var dimensions = { width: 60, height: 40 };
+export var info_area_dimensions = { width: dimensions.width, height: 13 };
+export var card_area_dimensions = { width: dimensions.width, height: 12 };
+export var button_area_dimensions = { width: dimensions.width, height: 10 };
+export var help_area_dimensions = { width: dimensions.width, height: 6 };
+export var x_buffer = 1;
+export var y_buffer = 1;
 export var total_cards = 3;
 export var max_commodity_count = 3;
-export var box_width = Math.floor(dimensions.width / 2);
-export var box_height = Math.floor(dimensions.height / 2);
-export var card_width = Math.floor(dimensions.width / total_cards);
-export var card_height = Math.floor(dimensions.height / 2);
-export var x_buffer = 2;
-export var y_buffer = 1;
+export var box_width = Math.floor(info_area_dimensions.width / 2);
+export var box_height = info_area_dimensions.height;
+export var card_width = Math.floor(card_area_dimensions.width / total_cards);
+export var card_height = card_area_dimensions.height;
+export var button_y = card_height + box_height - 2 * y_buffer;
+export var button_width = Math.floor(card_width * total_cards / 5) - 1;
+export var button_height = button_area_dimensions.height;
+export var help_width = dimensions.width;
+export var help_height = help_area_dimensions.height;
+export var help_x = 0;
+export var help_y = button_y + button_height;
+export var lattes_to_win = 5;
 export var alphabet = "abcdefghijklmnopqrstuvqxyz";
 export var consonants = "bcdfghjklmnpqrstvwxyz";
 export var vowels = "aeiou";
 export var card_fg_active = "white";
 export var card_fg_inactive = "#555555";
-// export const card_bg: string = "goldenrod";
 export var logger = new LogManager();
 export function random_name() {
     var name = "";
@@ -54,23 +63,7 @@ export function random_name() {
 export function delay(ms) {
     return new Promise(function (resolve) { return setTimeout(resolve, ms); });
 }
-// export enum PatchType {Empty, Wall, Floor}
-// export class Patch {
-//
-//     private readonly _p_type: PatchType;
-//
-//     constructor(p: PatchType) {this._p_type = p;}
-//
-//     stringify(): string {
-//         return this.patchString(this._p_type);
-//     }
-//
-//     patchString(p_type: PatchType): string {
-//         switch (p_type) {
-//             case PatchType.Empty: return ' ';
-//             case PatchType.Wall: return '#';
-//             case PatchType.Floor: return '.';
-//         }
-//     }
-// }
+export function newlineAString(s) {
+    return s.replace(/ /g, "\n");
+}
 //# sourceMappingURL=utils.js.map

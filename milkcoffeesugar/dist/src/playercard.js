@@ -14,37 +14,46 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 import { ACard } from "./card.js";
-import { commodity_text, random_name } from "./utils.js";
+import { commodity_text } from "./utils.js";
 // import {logger} from "./utils.js";
 var PlayerCard = /** @class */ (function (_super) {
     __extends(PlayerCard, _super);
     function PlayerCard(d) {
         var _this = _super.call(this, d) || this;
         _this.is_robot = false;
+        _this.total_lattes_sold = 0;
         _this.inventory = [0, 0, 0];
         _this.money = 10;
-        _this.name = random_name();
+        _this.name = "Player";
         _this.passed_turn = false;
         return _this;
     }
     PlayerCard.prototype.updateCardText = function () {
         var cardText = "";
         cardText += "Name: " + this.name + "\n";
-        cardText += "Money: " + this.money + "\n";
+        cardText += "Money: $" + this.money + "\n";
         cardText += "Inventory:\n" + commodity_text(this.inventory);
-        cardText += "\nPassed: " + this.passed_turn.toString().toUpperCase();
+        cardText += "\nLattes sold: " + this.total_lattes_sold + "\n";
+        if (this.passed_turn)
+            cardText += "Passed turn";
         this.setCardText(cardText);
     };
-    PlayerCard.prototype.sellLatte = function (current_price) {
+    PlayerCard.prototype.canSell = function () {
         for (var i_1 = 0; i_1 < this.inventory.length; i_1++) {
             if (this.inventory[i_1] < 1) {
                 return false;
             }
         }
+        return true;
+    };
+    PlayerCard.prototype.sellLatte = function (current_price) {
+        if (!this.canSell())
+            return false;
         this.money += current_price;
         for (var i_2 = 0; i_2 < this.inventory.length; i_2++) {
             this.inventory[i_2] -= 1;
         }
+        this.total_lattes_sold += 1;
         return true;
     };
     PlayerCard.prototype.make_move = function (valid_actions, current_available, current_prices) {

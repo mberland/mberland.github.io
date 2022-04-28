@@ -14,32 +14,15 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 import { PlayerCard } from "./playercard.js";
-import { random_name } from "./utils.js";
-var RobotCard = /** @class */ (function (_super) {
-    __extends(RobotCard, _super);
-    function RobotCard(d) {
+var ButtonCard = /** @class */ (function (_super) {
+    __extends(ButtonCard, _super);
+    function ButtonCard(d) {
         var _this = _super.call(this, d) || this;
-        _this.is_robot = true;
-        _this.name = random_name();
+        _this.name = "BUTTON";
+        _this.choiceNumber = -1;
         return _this;
     }
-    RobotCard.prototype.can_sell = function () {
-        for (var i_1 = 0; i_1 < this.inventory.length; i_1++) {
-            if (this.inventory[i_1] < 1) {
-                return false;
-            }
-        }
-        return true;
-    };
-    RobotCard.prototype.make_move = function (valid_actions, current_available, current_prices) {
-        // don't sell when below 2
-        // don't bid above $2/item
-        if (this.can_sell() && current_prices[0] > 2) {
-            return "5";
-        }
-        return valid_actions[Math.floor(Math.random() * valid_actions.length)].toString();
-    };
-    return RobotCard;
+    return ButtonCard;
 }(PlayerCard));
-export { RobotCard };
-//# sourceMappingURL=robotplayer.js.map
+export { ButtonCard };
+//# sourceMappingURL=buttoncard.js.map
