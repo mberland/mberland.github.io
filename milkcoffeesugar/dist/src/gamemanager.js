@@ -38,7 +38,7 @@ import { DisplayManager } from "./displaymanager.js";
 import { ACard } from "./card.js";
 import { PlayerCard } from "./playercard.js";
 import { RobotCard } from "./robotplayer.js";
-import { box_height, box_width, button_height, button_width, card_height, card_width, commodities, commodity_text, help_height, help_width, help_x, help_y, lattes_to_win, logger, max_commodity_count, newlineAString, total_cards, x_buffer, y_buffer } from "./utils.js";
+import { box_height, box_width, box_y, button_height, button_width, button_y, card_height, card_width, card_y, commodities, commodity_text, help_height, help_width, help_y, lattes_to_win, logger, max_commodity_count, newlineAString, total_cards } from "./utils.js";
 import { ButtonCard } from "./buttoncard.js";
 var GameManager = /** @class */ (function () {
     function GameManager() {
@@ -119,22 +119,22 @@ var GameManager = /** @class */ (function () {
     };
     GameManager.prototype.setup = function () {
         this.inventory = [Math.ceil(Math.random() * max_commodity_count), Math.ceil(Math.random() * max_commodity_count), Math.ceil(Math.random() * max_commodity_count)];
-        this.gameplay_box.setupCard(0, 0, box_width - x_buffer, box_height - y_buffer, "white", "blue");
-        this.inventory_box.setupCard(box_width, 0, box_width - x_buffer, box_height - y_buffer, "white", "red");
+        this.gameplay_box.setupCard(0, box_y, box_width, box_height, "white", "blue");
+        this.inventory_box.setupCard(box_width, box_y, box_width, box_height, "white", "red");
         var card_index = 0;
         (this.cards)[card_index] = new PlayerCard(this.d);
-        (this.cards)[card_index].setupCard(0, card_height, card_width - x_buffer, card_height - x_buffer, "white", "green");
+        (this.cards)[card_index].setupCard(0, card_y, card_width, card_height, "white", "green");
         card_index++;
         for (var i_2 = 1; i_2 < total_cards; i_2++) {
             (this.cards)[card_index] = new RobotCard(this.d);
-            (this.cards)[card_index].setupCard(i_2 * card_width, card_height, card_width - x_buffer, card_height - x_buffer, "white", "green");
+            (this.cards)[card_index].setupCard(i_2 * card_width, card_y, card_width, card_height, "white", "green");
             card_index++;
         }
         for (var i_3 = 0; i_3 < 5; i_3++) {
             (this.buttons)[i_3] = new ButtonCard(this.d);
-            (this.buttons)[i_3].setupCard(i_3 * (x_buffer + button_width), card_height + box_height - 2 * y_buffer, button_width, button_height, "white", "yellow");
+            (this.buttons)[i_3].setupCard(i_3 * button_width, button_y, button_width, button_height, "white", "yellow");
         }
-        this.help_box.setupCard(help_x, help_y, help_width, help_height, "white", "white");
+        this.help_box.setupCard(0, help_y, help_width, help_height, "white", "white");
         this.help_box.setCardText(this.help_box_default_text());
     };
     GameManager.prototype.showAllCards = function () {

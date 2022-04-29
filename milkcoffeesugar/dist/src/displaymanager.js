@@ -1,14 +1,12 @@
-import { dimensions, Patch, x_buffer } from "./utils.js";
+import { dimensions, Patch } from "./utils.js";
 import { Display } from "../lib/index.js";
 // import {KEYS} from "../lib/constants.js"
 var DisplayManager = /** @class */ (function () {
     function DisplayManager() {
         this.PatchChar = [" ", "#", "."];
         this.d = new Display(dimensions);
-        var div = document.createElement("div");
-        div.id = "rot";
-        document.body.appendChild(div);
-        div.appendChild(this.d.getContainer());
+        this._ctx = this.d.getContainer();
+        document.body.appendChild(this.d.getContainer());
     }
     DisplayManager.prototype.draw = function (x, y, c, fg, bg) {
         this.d.draw(x, y, c, fg, bg);
@@ -41,8 +39,8 @@ var DisplayManager = /** @class */ (function () {
     };
     DisplayManager.prototype.drawTextInBox = function (text, x, y, width, height, fg, vcenter) {
         if (vcenter === void 0) { vcenter = true; }
-        var row_window = height - 2 * x_buffer;
-        var col_window = width - 2 * x_buffer;
+        var row_window = height - 2;
+        var col_window = width - 2;
         var cc = 0;
         var start_row = 0;
         if (vcenter) {
@@ -56,7 +54,7 @@ var DisplayManager = /** @class */ (function () {
                 if (c == "\n") {
                     break;
                 }
-                this.draw(x + x_buffer + col, y + x_buffer + row, c, fg, "black");
+                this.draw(x + col + 1, y + row + 1, c, fg, "black");
             }
         }
     };
